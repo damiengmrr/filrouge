@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <title>Y‑Plaza — Connexion</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
+
+<body class="layout">
+  
+<header>
+  <nav class="nav" aria-label="Navigation principale">
+    <div class="brand">
+      <div class="brand__name">Y‑Plaza</div>
+      <div class="brand__tag">Immobilier</div>
+    </div>
+    <div class="nav-links">
+      <a class="nav-link" href="./index.html">Accueil</a>
+      <a class="nav-link" href="./search.html">Recherche</a>
+      
+      <a class="btn btn-primary" href="./login.html">Se connecter</a>
+    
+    </div>
+  </nav>
+</header>
+
+
+  <main>
+    <section class="hero" style="margin-bottom:18px;">
+      <div class="hero__kicker">Espace sécurisé</div>
+      <h1 class="h1" style="margin-bottom:8px;">Connexion / Inscription</h1>
+      <p class="lead" style="margin:0;">Accédez à vos favoris, au dashboard agent, ou à l’administration.</p>
+    </section>
+
+    <div class="grid grid-2">
+      <section class="card card-pad" aria-labelledby="login-title">
+        <div style="display:flex; align-items:baseline; justify-content:space-between; gap:12px; flex-wrap:wrap;">
+          <h2 id="login-title" class="section-title" style="margin:0;">Connexion</h2>
+          <span class="badge">Compte existant</span>
+        </div>
+        <div class="hr"></div>
+
+        <div id="login-error" class="alert alert-error" style="display:none" role="alert"></div>
+
+        <form id="login-form" class="form">
+          <div class="field">
+            <label for="login-email">Email</label>
+            <input id="login-email" name="email" type="email" autocomplete="email" required />
+          </div>
+          <div class="field">
+            <label for="login-password">Mot de passe</label>
+            <input id="login-password" name="password" type="password" autocomplete="current-password" required />
+          </div>
+          <button type="submit" class="btn btn-primary">Se connecter</button>
+        </form>
+      </section>
+
+      <section class="card card-pad" aria-labelledby="register-title">
+        <div style="display:flex; align-items:baseline; justify-content:space-between; gap:12px; flex-wrap:wrap;">
+          <h2 id="register-title" class="section-title" style="margin:0;">Créer un compte</h2>
+          <span class="badge badge--ok">Client</span>
+        </div>
+        <div class="hr"></div>
+
+        <div id="register-error" class="alert alert-error" style="display:none" role="alert"></div>
+        <div id="register-success" class="alert alert-success" style="display:none" role="status"></div>
+
+        <form id="register-form" class="form">
+          <div class="field">
+            <label for="register-name">Nom complet</label>
+            <input id="register-name" name="name" type="text" required />
+          </div>
+          <div class="field">
+            <label for="register-email">Email</label>
+            <input id="register-email" name="email" type="email" required />
+          </div>
+          <div class="field">
+            <label for="register-password">Mot de passe</label>
+            <input id="register-password" name="password" type="password" required />
+            <div class="small">Au moins 6 caractères.</div>
+          </div>
+          <button type="submit" class="btn btn-primary">Créer mon compte</button>
+        </form>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    &copy; <span id="footer-year"></span> Y‑Plaza — Projet Fil Rouge.
+  </footer>
+
+  <script src="./js/api.js" defer></script>
+  <script src="./js/auth.js" defer></script>
+  <script src="./js/ui.js" defer></script>
+  <script src="./js/pages.login.js" defer></script>
+</body>
+</html>

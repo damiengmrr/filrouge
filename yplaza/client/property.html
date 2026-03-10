@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <title>Y‑Plaza — Détail</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
+
+<body class="layout">
+  
+<header>
+  <nav class="nav" aria-label="Navigation principale">
+    <div class="brand">
+      <div class="brand__name">Y‑Plaza</div>
+      <div class="brand__tag">Immobilier</div>
+    </div>
+    <div class="nav-links">
+      <a class="nav-link" href="./index.html">Accueil</a>
+      <a class="nav-link" href="./search.html">Recherche</a>
+      
+      <a class="nav-link" href="./dashboard-agent.html" id="nav-dashboard">Dashboard</a>
+      <a class="nav-link" href="./admin.html" id="nav-admin">Admin</a>
+      <a class="btn btn-primary" href="./login.html" id="nav-auth">Se connecter</a>
+      <button class="btn btn-ghost" id="btn-logout" type="button">Déconnexion</button>
+    
+    </div>
+  </nav>
+</header>
+
+
+  <main>
+    <section class="hero" style="margin-bottom:18px;">
+      <div class="hero__kicker">Fiche annonce</div>
+      <h1 class="h1" style="margin-bottom:8px;">Détail du bien</h1>
+      <p class="lead" style="margin:0;">Informations principales, description, statut, et favoris.</p>
+    </section>
+
+    <div id="property-error" class="alert alert-error" style="display:none" role="alert"></div>
+
+    <article class="card card-pad" id="property-detail" aria-live="polite">
+      <p class="small">Chargement de la fiche…</p>
+    </article>
+
+    <section class="card card-pad" style="margin-top:16px;">
+      <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;">
+        <div>
+          <span class="badge badge--gold">Espace client</span>
+          <p class="small" style="margin:8px 0 0;">Ajoutez ce bien à vos favoris pour le retrouver plus tard.</p>
+        </div>
+        <button type="button" class="btn btn-primary" id="btn-favorite" aria-pressed="false" style="display:none">
+          Ajouter aux favoris
+        </button>
+      </div>
+      <p id="favorite-hint" class="small" style="margin:12px 0 0;">
+        Connectez-vous avec un compte client pour ajouter ce bien à vos favoris.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    &copy; <span id="footer-year"></span> Y‑Plaza — Projet Fil Rouge.
+  </footer>
+
+  <script src="./js/api.js" defer></script>
+  <script src="./js/auth.js" defer></script>
+  <script src="./js/ui.js" defer></script>
+  <script src="./js/pages.property.js" defer></script>
+</body>
+</html>

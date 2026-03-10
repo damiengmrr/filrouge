@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <title>Y‑Plaza — Admin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
+
+<body class="layout">
+  
+<header>
+  <nav class="nav" aria-label="Navigation principale">
+    <div class="brand">
+      <div class="brand__name">Y‑Plaza</div>
+      <div class="brand__tag">Immobilier</div>
+    </div>
+    <div class="nav-links">
+      <a class="nav-link" href="./index.html">Accueil</a>
+      <a class="nav-link" href="./search.html">Recherche</a>
+      
+      <a class="nav-link" href="./dashboard-agent.html" id="nav-dashboard">Dashboard</a>
+      <a class="nav-link" href="./admin.html" id="nav-admin">Admin</a>
+      <a class="btn btn-primary" href="./login.html" id="nav-auth">Se connecter</a>
+      <button class="btn btn-ghost" id="btn-logout" type="button">Déconnexion</button>
+    
+    </div>
+  </nav>
+</header>
+
+
+  <main>
+    <section class="hero" style="margin-bottom:18px;">
+      <div class="hero__kicker">Back‑office</div>
+      <h1 class="h1" style="margin-bottom:8px;">Administration</h1>
+      <p class="lead" style="margin:0;">Gestion des agences, utilisateurs et statistiques.</p>
+    </section>
+
+    <div id="admin-error" class="alert alert-error" style="display:none" role="alert"></div>
+
+    <section class="grid grid-2">
+      <article class="card card-pad">
+        <div style="display:flex; align-items:baseline; justify-content:space-between; gap:12px; flex-wrap:wrap;">
+          <h2 class="section-title" style="margin:0;">Statistiques</h2>
+          <span class="badge badge--gold">Insights</span>
+        </div>
+        <div class="hr"></div>
+        <div id="stats-container" class="grid" aria-live="polite"></div>
+      </article>
+
+      <article class="card card-pad">
+        <div style="display:flex; align-items:baseline; justify-content:space-between; gap:12px; flex-wrap:wrap;">
+          <h2 class="section-title" style="margin:0;">Agences</h2>
+          <span class="badge">Gestion</span>
+        </div>
+        <div class="hr"></div>
+
+        <form id="agency-form" class="form">
+          <input type="hidden" id="agency-id" name="id" />
+          <div class="field">
+            <label for="agency-name">Nom de l’agence</label>
+            <input id="agency-name" name="name" type="text" required />
+          </div>
+          <div class="field">
+            <label for="agency-city">Ville</label>
+            <input id="agency-city" name="city" type="text" required />
+          </div>
+
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <button class="btn btn-primary" type="submit" id="btn-save-agency">Enregistrer</button>
+            <button class="btn" type="button" id="btn-reset-agency">Réinitialiser</button>
+          </div>
+        </form>
+
+        <div class="hr"></div>
+        <div class="table-wrap">
+          <table aria-label="Liste des agences">
+            <thead>
+              <tr>
+                <th>Nom</th>
+                <th>Ville</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="agencies-body"></tbody>
+          </table>
+        </div>
+      </article>
+    </section>
+
+    <section class="card card-pad" style="margin-top:18px;">
+      <div style="display:flex; align-items:baseline; justify-content:space-between; gap:12px; flex-wrap:wrap;">
+        <h2 class="section-title" style="margin:0;">Utilisateurs</h2>
+        <span class="badge">Comptes</span>
+      </div>
+      <div class="hr"></div>
+
+      <div class="table-wrap">
+        <table aria-label="Liste des utilisateurs">
+          <thead>
+            <tr>
+              <th>Nom</th>
+              <th>Email</th>
+              <th>Rôle</th>
+              <th>Agence</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="users-body"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    &copy; <span id="footer-year"></span> Y‑Plaza — Projet Fil Rouge.
+  </footer>
+
+  <script src="./js/api.js" defer></script>
+  <script src="./js/auth.js" defer></script>
+  <script src="./js/ui.js" defer></script>
+  <script src="./js/pages.admin.js" defer></script>
+</body>
+</html>

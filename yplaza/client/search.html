@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <title>Y‑Plaza — Recherche</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
+
+<body class="layout">
+  
+<header>
+  <nav class="nav" aria-label="Navigation principale">
+    <div class="brand">
+      <div class="brand__name">Y‑Plaza</div>
+      <div class="brand__tag">Immobilier</div>
+    </div>
+    <div class="nav-links">
+      <a class="nav-link" href="./index.html">Accueil</a>
+      <a class="nav-link" href="./search.html">Recherche</a>
+      
+      <a class="nav-link" href="./dashboard-agent.html" id="nav-dashboard">Dashboard</a>
+      <a class="nav-link" href="./admin.html" id="nav-admin">Admin</a>
+      <a class="btn btn-primary" href="./login.html" id="nav-auth">Se connecter</a>
+      <button class="btn btn-ghost" id="btn-logout" type="button">Déconnexion</button>
+    
+    </div>
+  </nav>
+</header>
+
+
+  <main>
+    <h1 class="h1" style="margin-bottom:8px;">Recherche</h1>
+    <p class="lead">Affinez par ville et budget. Cliquez sur une annonce pour voir le détail.</p>
+
+    <div class="search-layout" style="margin-top:18px;">
+      <aside class="card card-pad filters-sticky" aria-labelledby="filters-title">
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
+          <h2 id="filters-title" class="section-title" style="margin:0;">Filtres</h2>
+          <span class="badge">Affinage</span>
+        </div>
+        <div class="hr"></div>
+
+        <form id="search-form" class="form">
+          <div class="field">
+            <label for="city">Ville</label>
+            <input id="city" name="city" type="text" placeholder="Ex. Avignon" />
+          </div>
+
+          <div class="grid grid-2" style="gap:12px;">
+            <div class="field">
+              <label for="minPrice">Prix min (€)</label>
+              <input id="minPrice" name="minPrice" type="number" min="0" step="1000" />
+            </div>
+            <div class="field">
+              <label for="maxPrice">Prix max (€)</label>
+              <input id="maxPrice" name="maxPrice" type="number" min="0" step="1000" />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="type">Type</label>
+            <input id="type" name="type" type="text" placeholder="Maison, appartement..." />
+          </div>
+
+          <div class="grid grid-2" style="gap:12px;">
+            <div class="field">
+              <label for="status">Statut</label>
+              <select id="status" name="status">
+                <option value="">Tous</option>
+                <option value="available">Disponible</option>
+                <option value="sold">Vendu</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="sort">Tri</label>
+              <select id="sort" name="sort">
+                <option value="">Plus récents</option>
+                <option value="price_asc">Prix croissant</option>
+                <option value="price_desc">Prix décroissant</option>
+                <option value="views_desc">Les plus consultés</option>
+              </select>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Rechercher</button>
+          <p class="small" style="margin:0;">Astuce : essayez “city=Montpellier” + maxPrice.</p>
+        </form>
+      </aside>
+
+      <section class="card card-pad" aria-labelledby="results-title">
+        <div style="display:flex; align-items:baseline; justify-content:space-between; gap:12px; flex-wrap:wrap;">
+          <h2 id="results-title" class="section-title" style="margin:0;">Résultats</h2>
+          <span class="badge">Liste</span>
+        </div>
+        <div class="hr"></div>
+
+        <div id="search-error" class="alert alert-error" style="display:none" role="alert"></div>
+        <div id="results-container" class="grid grid-3" aria-live="polite"></div>
+
+        <div class="pagination" id="pagination" aria-label="Pagination des résultats">
+          <button class="btn" type="button" id="prev-page">Précédent</button>
+          <span id="pagination-info"></span>
+          <button class="btn" type="button" id="next-page">Suivant</button>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    &copy; <span id="footer-year"></span> Y‑Plaza — Projet Fil Rouge.
+  </footer>
+
+  <script src="./js/api.js" defer></script>
+  <script src="./js/auth.js" defer></script>
+  <script src="./js/ui.js" defer></script>
+  <script src="./js/pages.search.js" defer></script>
+</body>
+</html>
