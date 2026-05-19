@@ -42,6 +42,7 @@
     </section>
 
     <div id="admin-error" class="alert alert-error" style="display:none" role="alert"></div>
+    <div id="admin-success" class="alert alert-success" style="display:none" role="status"></div>
 
     <section class="grid grid-2">
       <article class="card card-pad">
@@ -70,6 +71,20 @@
             <label for="agency-city">Ville</label>
             <input id="agency-city" name="city" type="text" required />
           </div>
+          <div class="field">
+            <label for="agency-email">Email</label>
+            <input id="agency-email" name="email" type="email" />
+          </div>
+          <div class="grid grid-2" style="gap:12px;">
+            <div class="field">
+              <label for="agency-phone">Téléphone</label>
+              <input id="agency-phone" name="phone" type="text" />
+            </div>
+            <div class="field">
+              <label for="agency-address">Adresse</label>
+              <input id="agency-address" name="address" type="text" />
+            </div>
+          </div>
 
           <div style="display:flex; gap:10px; flex-wrap:wrap;">
             <button class="btn btn-primary" type="submit" id="btn-save-agency">Enregistrer</button>
@@ -84,6 +99,8 @@
               <tr>
                 <th>Nom</th>
                 <th>Ville</th>
+                <th>Contact</th>
+                <th>Annonces</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -93,11 +110,139 @@
       </article>
     </section>
 
+    <section class="grid grid-2" style="margin-top:18px;">
+      <article class="card card-pad">
+        <div style="display:flex; align-items:baseline; justify-content:space-between; gap:12px; flex-wrap:wrap;">
+          <h2 class="section-title" style="margin:0;">Annonces</h2>
+          <span class="badge">Gestion complète</span>
+        </div>
+        <div class="hr"></div>
+
+        <form id="admin-property-form" class="form">
+          <input type="hidden" id="admin-property-id" />
+          <div class="field">
+            <label for="admin-property-title">Titre</label>
+            <input id="admin-property-title" type="text" required />
+          </div>
+          <div class="grid grid-2" style="gap:12px;">
+            <div class="field">
+              <label for="admin-property-city">Ville</label>
+              <input id="admin-property-city" type="text" required />
+            </div>
+            <div class="field">
+              <label for="admin-property-type">Type</label>
+              <input id="admin-property-type" type="text" required />
+            </div>
+          </div>
+          <div class="grid grid-2" style="gap:12px;">
+            <div class="field">
+              <label for="admin-property-price">Prix (€)</label>
+              <input id="admin-property-price" type="number" min="0" step="1000" required />
+            </div>
+            <div class="field">
+              <label for="admin-property-surface">Surface (m²)</label>
+              <input id="admin-property-surface" type="number" min="1" step="1" required />
+            </div>
+          </div>
+          <div class="grid grid-2" style="gap:12px;">
+            <div class="field">
+              <label for="admin-property-rooms">Pièces</label>
+              <input id="admin-property-rooms" type="number" min="1" step="1" required />
+            </div>
+            <div class="field">
+              <label for="admin-property-status">Statut</label>
+              <select id="admin-property-status">
+                <option value="draft">Brouillon</option>
+                <option value="published">Publiée</option>
+                <option value="sold">Vendue</option>
+                <option value="archived">Archivée</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label for="admin-property-agency">Agence</label>
+            <select id="admin-property-agency" required></select>
+          </div>
+          <div class="field">
+            <label for="admin-property-description">Description</label>
+            <textarea id="admin-property-description" rows="5"></textarea>
+          </div>
+          <div class="field">
+            <label for="admin-property-images">Images</label>
+            <input id="admin-property-images" type="file" accept="image/*" multiple />
+            <div id="admin-image-preview" class="image-preview-grid"></div>
+            <div id="admin-existing-images" class="image-manager-grid"></div>
+          </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <button class="btn btn-primary" type="submit">Enregistrer</button>
+            <button class="btn" type="button" id="btn-reset-admin-property">Réinitialiser</button>
+          </div>
+        </form>
+      </article>
+
+      <article class="card card-pad">
+        <div style="display:flex; align-items:baseline; justify-content:space-between; gap:12px; flex-wrap:wrap;">
+          <h2 class="section-title" style="margin:0;">Toutes les annonces</h2>
+          <span class="badge">Catalogue</span>
+        </div>
+        <div class="hr"></div>
+        <div id="admin-properties-container" class="admin-list" aria-live="polite"></div>
+      </article>
+    </section>
+
     <section class="card card-pad" style="margin-top:18px;">
       <div style="display:flex; align-items:baseline; justify-content:space-between; gap:12px; flex-wrap:wrap;">
         <h2 class="section-title" style="margin:0;">Utilisateurs</h2>
         <span class="badge">Comptes</span>
       </div>
+      <div class="hr"></div>
+
+      <form id="user-form" class="form admin-user-form">
+        <input type="hidden" id="user-id" />
+        <div class="grid grid-2" style="gap:12px;">
+          <div class="field">
+            <label for="user-name">Nom</label>
+            <input id="user-name" type="text" required />
+          </div>
+          <div class="field">
+            <label for="user-email">Email</label>
+            <input id="user-email" type="email" required />
+          </div>
+        </div>
+        <div class="grid grid-2" style="gap:12px;">
+          <div class="field">
+            <label for="user-password">Mot de passe</label>
+            <input id="user-password" type="password" placeholder="Requis à la création" />
+          </div>
+          <div class="field">
+            <label for="user-role">Rôle</label>
+            <select id="user-role">
+              <option value="client">client</option>
+              <option value="agent">agent</option>
+              <option value="agency">agency</option>
+              <option value="admin">admin</option>
+            </select>
+          </div>
+        </div>
+        <div class="grid grid-2" style="gap:12px;">
+          <div class="field">
+            <label for="user-agency">Agence</label>
+            <select id="user-agency"></select>
+          </div>
+          <div class="field">
+            <label for="user-active">Statut du compte</label>
+            <select id="user-active">
+              <option value="true">Actif</option>
+              <option value="false">Désactivé</option>
+            </select>
+          </div>
+        </div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <button class="btn btn-primary" type="submit">Enregistrer l’utilisateur</button>
+          <button class="btn" type="button" id="btn-reset-user">Réinitialiser</button>
+        </div>
+      </form>
+
       <div class="hr"></div>
 
       <div class="table-wrap">
@@ -118,7 +263,7 @@
   </main>
 
   <footer>
-    &copy; <span id="footer-year"></span> Y‑Plaza — Projet Fil Rouge.
+    &copy; <span id="footer-year"></span> Y‑Plaza
   </footer>
 
   <script src="./js/api.js" defer></script>

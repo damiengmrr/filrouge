@@ -42,6 +42,8 @@
     </section>
 
     <div id="dashboard-error" class="alert alert-error" style="display:none" role="alert"></div>
+    <div id="dashboard-success" class="alert alert-success" style="display:none" role="status"></div>
+    <div id="agent-stats" class="dashboard-stats" aria-live="polite"></div>
 
     <section class="grid grid-2">
       <article class="card card-pad">
@@ -55,8 +57,18 @@
           <input type="hidden" id="property-id" name="id" />
 
           <div class="field">
+            <label for="property-title">Titre</label>
+            <input id="property-title" name="title" type="text" required />
+          </div>
+
+          <div class="field">
             <label for="property-city">Ville</label>
             <input id="property-city" name="city" type="text" required />
+          </div>
+
+          <div class="field">
+            <label for="property-type">Type de bien</label>
+            <input id="property-type" name="type" type="text" placeholder="Appartement, maison, loft..." required />
           </div>
 
           <div class="grid grid-2" style="gap:12px;">
@@ -66,20 +78,22 @@
             </div>
             <div class="field">
               <label for="property-surface">Surface (m²)</label>
-              <input id="property-surface" name="surface" type="number" min="0" step="1" />
+              <input id="property-surface" name="surface" type="number" min="1" step="1" required />
             </div>
           </div>
 
           <div class="grid grid-2" style="gap:12px;">
             <div class="field">
               <label for="property-rooms">Pièces</label>
-              <input id="property-rooms" name="rooms" type="number" min="0" step="1" />
+              <input id="property-rooms" name="rooms" type="number" min="1" step="1" required />
             </div>
             <div class="field">
               <label for="property-status">Statut</label>
               <select id="property-status" name="status">
-                <option value="available">Disponible</option>
-                <option value="sold">Vendu</option>
+                <option value="draft">Brouillon</option>
+                <option value="published">Publiée</option>
+                <option value="sold">Vendue</option>
+                <option value="archived">Archivée</option>
               </select>
             </div>
           </div>
@@ -92,6 +106,13 @@
           <div class="field">
             <label for="property-description">Description</label>
             <textarea id="property-description" name="description" rows="5" placeholder="Description courte et réaliste…"></textarea>
+          </div>
+
+          <div class="field">
+            <label for="property-images">Images</label>
+            <input id="property-images" name="images" type="file" accept="image/*" multiple />
+            <div id="image-preview" class="image-preview-grid"></div>
+            <div id="existing-images" class="image-manager-grid"></div>
           </div>
 
           <div style="display:flex; gap:10px; flex-wrap:wrap;">
@@ -114,7 +135,7 @@
   </main>
 
   <footer>
-    &copy; <span id="footer-year"></span> Y‑Plaza — Projet Fil Rouge.
+    &copy; <span id="footer-year"></span> Y‑Plaza
   </footer>
 
   <script src="./js/api.js" defer></script>

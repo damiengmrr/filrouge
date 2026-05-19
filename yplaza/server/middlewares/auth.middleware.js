@@ -15,6 +15,7 @@ function requireAuth(req, res, next) {
       role: payload.role,
       name: payload.name,
       email: payload.email,
+      agency_id: payload.agency_id || null,
     };
     return next();
   } catch (err) {
@@ -34,8 +35,30 @@ function requireRole(...roles) {
   };
 }
 
+function optionalAuth(req, res, next) {
+  const token = req.cookies[config.cookie.name];
+  if (!token) {
+    return next();
+  }
+
+  try {
+    const payload = jwt.verify(token, config.jwt.secret);
+    req.user = {
+      id: payload.id,
+      role: payload.role,
+      name: payload.name,
+      email: payload.email,
+      agency_id: payload.agency_id || null,
+    };
+  } catch (err) {
+    req.user = null;
+  }
+
+  return next();
+}
+
 module.exports = {
   requireAuth,
   requireRole,
+  optionalAuth,
 };
-

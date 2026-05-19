@@ -2,95 +2,104 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8" />
-  <title>Y‑Plaza — Accueil</title>
+  <title>Y-Plaza — Accueil</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="./css/style.css" />
 </head>
 
 <body class="layout">
-  
+
 <header>
   <nav class="nav" aria-label="Navigation principale">
     <div class="brand">
       <div class="brand__mark">Y</div>
       <div>
-        <div class="brand__name">Y‑Plaza</div>
+        <div class="brand__name">Y-Plaza</div>
         <div class="brand__tag">Agence immobilière</div>
       </div>
     </div>
+
     <div class="nav-links">
       <a class="nav-link" href="./index.html">Accueil</a>
-      <a class="nav-link" href="./search.html">Acheter</a>
-      <a class="nav-link" href="./search.html">Louer</a>
-      
+      <a class="nav-link" href="./search.html?mode=buy">Acheter</a>
+      <a class="nav-link" href="./search.html?mode=rent">Louer</a>
+      <a class="nav-link" href="./estimate.html">Estimer</a>
+
       <a class="nav-link" href="./dashboard-agent.html" id="nav-dashboard">Dashboard</a>
       <a class="nav-link" href="./admin.html" id="nav-admin">Admin</a>
       <a class="btn btn-primary" href="./login.html" id="nav-auth">Mon compte</a>
       <button class="btn btn-ghost" id="btn-logout" type="button">Déconnexion</button>
-    
+
       <a class="btn btn-primary" href="./search.html">Rechercher</a>
     </div>
   </nav>
 </header>
 
+<section class="hero-visual" aria-label="Recherche immobilière">
+  <div class="hero-visual__wrap">
+    <div class="hero-visual__img" role="img" aria-label="Visuel immobilier"></div>
 
-  <!-- HERO visuel + barre de recherche (style ERA) -->
-  <section class="hero-visual" aria-label="Recherche immobilière">
-    <div class="hero-visual__wrap">
-      <div class="hero-visual__img" role="img" aria-label="Visuel immobilier"></div>
-      <div class="hero-visual__inner">
-        <div class="hero-search" role="search">
-          <div class="hero-search__tabs" aria-label="Type de recherche">
-            <div class="hero-search__tab is-active">Acheter</div>
-            <div class="hero-search__tab">Louer</div>
-            <div class="hero-search__tab">Estimer</div>
-          </div>
-          <div class="hero-search__bar">
-            <input class="hero-search__input" id="hero-city" type="text" placeholder="Entrez une ville ou un département" />
-            <a class="btn btn-primary hero-search__btn" href="./search.html">Rechercher</a>
-          </div>
+    <div class="hero-visual__inner">
+      <div class="hero-search" role="search">
+        <div class="hero-search__tabs" aria-label="Type de recherche">
+          <button class="hero-search__tab is-active" type="button" data-mode="buy" aria-selected="true">Acheter</button>
+          <button class="hero-search__tab" type="button" data-mode="rent" aria-selected="false">Louer</button>
+          <button class="hero-search__tab" type="button" data-mode="estimate" aria-selected="false">Estimer</button>
+        </div>
+
+        <div class="hero-search__bar">
+          <input
+            class="hero-search__input"
+            id="hero-city"
+            type="text"
+            placeholder="Entrez une ville ou un département"
+          />
+          <button class="btn btn-primary hero-search__btn" id="hero-search-btn" type="button">
+            Rechercher
+          </button>
         </div>
       </div>
     </div>
+  </div>
+</section>
+
+<main>
+  <section class="section" aria-labelledby="latest-title">
+    <div class="section__head">
+      <div>
+        <div class="kicker">Notre sélection</div>
+        <h2 id="latest-title" class="h2" style="margin-top:6px;">Biens disponibles</h2>
+      </div>
+      <a class="btn" href="./search.html">Voir tout</a>
+    </div>
+    <div class="rule"></div>
+
+    <div id="latest-error" class="alert alert-error" style="display:none" role="alert"></div>
+    <div id="latest-container" class="grid grid-3 properties-grid" aria-live="polite"></div>
   </section>
 
-  <main>
-    <section class="section" aria-labelledby="latest-title">
-      <div class="section__head">
-        <div>
-          <div class="kicker">Notre sélection</div>
-          <h2 id="latest-title" class="h2" style="margin-top:6px;">Biens disponibles</h2>
-        </div>
-        <a class="btn" href="./search.html">Voir tout</a>
-      </div>
-      <div class="rule"></div>
+  <section class="section" aria-labelledby="stats-title">
+    <div class="section__head">
+      <h2 id="stats-title" class="h2" style="margin:0;">Chiffres clés</h2>
+      <span class="small">Données plateforme</span>
+    </div>
+    <div class="rule"></div>
+    <div id="home-stats" aria-live="polite"><p class="small">Chargement…</p></div>
+  </section>
+</main>
 
-      <div id="latest-error" class="alert alert-error" style="display:none" role="alert"></div>
-      <div id="latest-container" class="grid grid-3" aria-live="polite"></div>
-    </section>
+<footer>
+  &copy; <span id="footer-year"></span> Y-Plaza
+</footer>
 
-    <section class="section" aria-labelledby="stats-title">
-      <div class="section__head">
-        <h2 id="stats-title" class="h2" style="margin:0;">Chiffres clés</h2>
-        <span class="small">Données plateforme</span>
-      </div>
-      <div class="rule"></div>
-      <div id="home-stats" aria-live="polite"><p class="small">Chargement…</p></div>
-    </section>
-  </main>
-
-  <footer>
-    &copy; <span id="footer-year"></span> Y‑Plaza — Projet Fil Rouge.
-  </footer>
-
-  <script src="./js/api.js" defer></script>
-  <script src="./js/auth.js" defer></script>
-  <script src="./js/ui.js" defer></script>
-  <script src="./js/pages.index.js" defer></script>
+<script src="./js/api.js" defer></script>
+<script src="./js/auth.js" defer></script>
+<script src="./js/ui.js" defer></script>
+<script src="./js/pages.index.js" defer></script>
 </body>
 </html>

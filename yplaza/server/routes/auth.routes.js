@@ -55,6 +55,7 @@ router.get('/me', (req, res) => {
         name: payload.name,
         email: payload.email,
         role: payload.role,
+        agency_id: payload.agency_id || null,
       },
     });
   } catch (e) {
@@ -67,6 +68,24 @@ router.get('/users', requireAuth, requireRole('admin'), async (req, res, next) =
   try {
     const users = await authService.listUsers();
     res.json({ data: users });
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post('/users', requireAuth, requireRole('admin'), async (req, res, next) => {
+  try {
+    const user = await authService.createUser(req.body);
+    res.status(201).json({ user });
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.put('/users/:id', requireAuth, requireRole('admin'), async (req, res, next) => {
+  try {
+    const user = await authService.updateUser(req.params.id, req.body);
+    res.json({ user });
   } catch (err) {
     next(err);
   }
@@ -87,5 +106,13 @@ router.patch(
   }
 );
 
-module.exports = router;
+router.delete('/users/:id', requireAuth, requireRole('admin'), async (req, res, next) => {
+  try {
+    const user = await authService.disableUser(req.params.id);
+    res.json({ user });
+  } catch (err) {
+    next(err);
+  }
+});
 
+module.exports = router;

@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <title>Y-Plaza — Estimation</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
+<body class="layout">
+
+<header>
+  <nav class="nav" aria-label="Navigation principale">
+    <div class="brand">
+      <div class="brand__mark">Y</div>
+      <div>
+        <div class="brand__name">Y-Plaza</div>
+        <div class="brand__tag">Agence immobilière</div>
+      </div>
+    </div>
+
+    <div class="nav-links">
+      <a class="nav-link" href="./index.html">Accueil</a>
+      <a class="nav-link" href="./search.html?mode=buy">Acheter</a>
+      <a class="nav-link" href="./search.html?mode=rent">Louer</a>
+      <a class="nav-link" href="./estimate.html">Estimer</a>
+      <a class="btn btn-primary" href="./search.html">Voir les biens</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <section class="estimate-hero">
+    <div class="kicker">Estimation</div>
+    <h1 class="h1">Estimer un bien</h1>
+    <p class="lead">
+      Une page simple, crédible et utile pour donner une première fourchette d’estimation.
+    </p>
+  </section>
+
+  <section class="estimate-layout">
+    <article class="estimate-card">
+      <h2 class="section-title" style="margin-top:0;">Informations du bien</h2>
+
+      <form id="estimate-form" class="form">
+        <div class="grid grid-2 search-mini-grid">
+          <div class="field">
+            <label for="estimate-city">Ville</label>
+            <input id="estimate-city" name="city" type="text" placeholder="Ex. Montpellier" required />
+          </div>
+
+          <div class="field">
+            <label for="estimate-type">Type de bien</label>
+            <select id="estimate-type" name="type" required>
+              <option value="Appartement">Appartement</option>
+              <option value="Maison">Maison</option>
+              <option value="Studio">Studio</option>
+              <option value="Terrain">Terrain</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-2 search-mini-grid">
+          <div class="field">
+            <label for="estimate-surface">Surface (m²)</label>
+            <input id="estimate-surface" name="surface" type="number" min="1" step="1" required />
+          </div>
+
+          <div class="field">
+            <label for="estimate-rooms">Nombre de pièces</label>
+            <input id="estimate-rooms" name="rooms" type="number" min="1" step="1" required />
+          </div>
+        </div>
+
+        <div class="grid grid-2 search-mini-grid">
+          <div class="field">
+            <label for="estimate-condition">État général</label>
+            <select id="estimate-condition" name="condition">
+              <option value="standard">Standard</option>
+              <option value="good">Bon état</option>
+              <option value="renovated">Rénové</option>
+              <option value="to-refresh">À rafraîchir</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="estimate-outdoor">Extérieur</label>
+            <select id="estimate-outdoor" name="outdoor">
+              <option value="none">Aucun</option>
+              <option value="balcony">Balcon</option>
+              <option value="garden">Jardin</option>
+              <option value="terrace">Terrasse</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="estimate-actions">
+          <button type="submit" class="btn btn-primary">Calculer l’estimation</button>
+          <button type="reset" class="btn">Réinitialiser</button>
+        </div>
+      </form>
+
+      <div id="estimate-result" class="estimate-result" style="display:none;"></div>
+    </article>
+
+    <aside class="estimate-side">
+      <h2 class="section-title" style="margin-top:0;">Conseil</h2>
+      <p class="small">
+        Cette estimation donne une base cohérente pour le site. Ensuite, tu peux la remplacer par un calcul backend ou une vraie logique métier.
+      </p>
+
+      <ul class="estimate-list">
+        <li>Ville et surface prises en compte</li>
+        <li>Nombre de pièces pris en compte</li>
+        <li>Bonus ou malus selon l’état du bien</li>
+        <li>Petit bonus si balcon, terrasse ou jardin</li>
+      </ul>
+    </aside>
+  </section>
+</main>
+
+<footer>
+  &copy; <span id="footer-year"></span> Y-Plaza
+</footer>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const cityInput = document.getElementById('estimate-city');
+    const resultBox = document.getElementById('estimate-result');
+    const form = document.getElementById('estimate-form');
+
+    const params = new URLSearchParams(window.location.search);
+    const urlCity = params.get('city');
+    if (urlCity) cityInput.value = urlCity;
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const city = document.getElementById('estimate-city').value.trim();
+      const type = document.getElementById('estimate-type').value;
+      const surface = Number(document.getElementById('estimate-surface').value || 0);
+      const rooms = Number(document.getElementById('estimate-rooms').value || 0);
+      const condition = document.getElementById('estimate-condition').value;
+      const outdoor = document.getElementById('estimate-outdoor').value;
+
+      let basePricePerM2 = 3200;
+
+      if (/paris/i.test(city)) basePricePerM2 = 9800;
+      else if (/lyon/i.test(city)) basePricePerM2 = 5200;
+      else if (/montpellier/i.test(city)) basePricePerM2 = 4100;
+      else if (/marseille/i.test(city)) basePricePerM2 = 3900;
+      else if (/toulouse/i.test(city)) basePricePerM2 = 4000;
+      else if (/nice/i.test(city)) basePricePerM2 = 6100;
+      else if (/bordeaux/i.test(city)) basePricePerM2 = 5000;
+      else if (/nantes/i.test(city)) basePricePerM2 = 4300;
+      else if (/lille/i.test(city)) basePricePerM2 = 3600;
+
+      if (type === 'Maison') basePricePerM2 += 250;
+      if (type === 'Studio') basePricePerM2 += 180;
+      if (type === 'Terrain') basePricePerM2 -= 1800;
+
+      let multiplier = 1;
+      if (condition === 'good') multiplier += 0.04;
+      if (condition === 'renovated') multiplier += 0.09;
+      if (condition === 'to-refresh') multiplier -= 0.08;
+
+      if (outdoor === 'balcony') multiplier += 0.02;
+      if (outdoor === 'terrace') multiplier += 0.04;
+      if (outdoor === 'garden') multiplier += 0.06;
+
+      const roomsBonus = rooms >= 4 ? 1.03 : 1;
+      const estimate = Math.round(surface * basePricePerM2 * multiplier * roomsBonus);
+
+      const low = Math.round(estimate * 0.94);
+      const high = Math.round(estimate * 1.06);
+
+      resultBox.style.display = 'block';
+      resultBox.innerHTML = `
+        <div class="kicker">Résultat</div>
+        <h3 style="margin:8px 0 4px;">Estimation de votre ${type.toLowerCase()}</h3>
+        <span class="estimate-price">${estimate.toLocaleString('fr-FR')} €</span>
+        <p class="small" style="margin:0 0 10px;">
+          Fourchette indicative : <strong>${low.toLocaleString('fr-FR')} €</strong> à
+          <strong>${high.toLocaleString('fr-FR')} €</strong>
+        </p>
+        <p class="small" style="margin:0;">
+          Basée sur la ville, la surface, le nombre de pièces, l’état général et les extérieurs.
+        </p>
+      `;
+    });
+  });
+</script>
+</body>
+</html>

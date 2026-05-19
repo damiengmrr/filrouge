@@ -9,7 +9,14 @@ async function listFavorites(userId) {
            p.city,
            p.price,
            p.type,
-           p.status
+           p.status,
+           (
+             SELECT image_url
+             FROM property_images pi
+             WHERE pi.property_id = p.id
+             ORDER BY pi.is_main DESC, pi.sort_order ASC, pi.id ASC
+             LIMIT 1
+           ) AS main_image_url
     FROM favorites f
     JOIN properties p ON p.id = f.property_id
     WHERE f.user_id = $1
@@ -49,4 +56,3 @@ module.exports = {
   addFavorite,
   removeFavorite,
 };
-

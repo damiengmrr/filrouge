@@ -79,6 +79,36 @@ function apiUpdatePropertyStatus(id, status) {
   });
 }
 
+function apiUploadPropertyImages(id, files) {
+  const formData = new FormData();
+  Array.from(files || []).forEach((file) => {
+    formData.append('images', file);
+  });
+  return apiRequest(`/api/properties/${id}/images`, {
+    method: 'POST',
+    body: formData,
+  });
+}
+
+function apiDeletePropertyImage(propertyId, imageId) {
+  return apiRequest(`/api/properties/${propertyId}/images/${imageId}`, {
+    method: 'DELETE',
+  });
+}
+
+function apiSetMainPropertyImage(propertyId, imageId) {
+  return apiRequest(`/api/properties/${propertyId}/images/${imageId}/main`, {
+    method: 'PUT',
+  });
+}
+
+function apiContactAgency(propertyId, payload) {
+  return apiRequest(`/api/properties/${propertyId}/contact`, {
+    method: 'POST',
+    body: payload,
+  });
+}
+
 function apiGetAgencies() {
   return apiRequest('/api/agencies');
 }
@@ -132,7 +162,27 @@ function apiMe() {
 }
 
 function apiGetUsers() {
-  return apiRequest('/api/auth/users');
+  return apiRequest('/api/users');
+}
+
+function apiCreateUser(payload) {
+  return apiRequest('/api/users', {
+    method: 'POST',
+    body: payload,
+  });
+}
+
+function apiUpdateUser(id, payload) {
+  return apiRequest(`/api/users/${id}`, {
+    method: 'PUT',
+    body: payload,
+  });
+}
+
+function apiDeleteUser(id) {
+  return apiRequest(`/api/users/${id}`, {
+    method: 'DELETE',
+  });
 }
 
 function apiChangeUserRole(id, role) {
@@ -157,4 +207,3 @@ function apiRemoveFavorite(propertyId) {
     method: 'DELETE',
   });
 }
-

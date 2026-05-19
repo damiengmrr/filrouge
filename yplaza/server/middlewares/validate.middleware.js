@@ -33,7 +33,10 @@ function validatePropertyPayload(req, res, next) {
   if (!isNumber(price) || !isNumber(surface) || !isNumber(rooms)) {
     return res.status(400).json({ error: { message: 'Prix, surface et nombre de pièces doivent être numériques.' } });
   }
-  if (status && !['available', 'sold'].includes(status)) {
+  if (
+    status &&
+    !['available', 'draft', 'published', 'sold', 'archived', 'brouillon', 'publiee', 'vendue', 'archivee'].includes(status)
+  ) {
     return res.status(400).json({ error: { message: 'Status invalide.' } });
   }
   return next();
@@ -71,4 +74,3 @@ module.exports = {
   validateAgencyPayload,
   validatePropertySearchQuery,
 };
-

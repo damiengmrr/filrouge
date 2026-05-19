@@ -9,6 +9,7 @@ const { errorHandler, notFoundHandler } = require('./middlewares/error.middlewar
 const authRoutes = require('./routes/auth.routes');
 const propertiesRoutes = require('./routes/properties.routes');
 const agenciesRoutes = require('./routes/agencies.routes');
+const usersRoutes = require('./routes/users.routes');
 const statsRoutes = require('./routes/stats.routes');
 const favoritesRoutes = require('./routes/favorites.routes');
 
@@ -25,10 +26,12 @@ app.use(
 
 // Static pour le client si jamais servi par le backend (optionnel)
 app.use(express.static(path.join(__dirname, '..', 'client')));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.use('/api/auth', authRoutes);
 app.use('/api/properties', propertiesRoutes);
 app.use('/api/agencies', agenciesRoutes);
+app.use('/api/users', usersRoutes);
 app.use('/api/stats', statsRoutes);
 app.use('/api/favorites', favoritesRoutes);
 
@@ -50,4 +53,3 @@ async function start() {
 }
 
 start();
-
